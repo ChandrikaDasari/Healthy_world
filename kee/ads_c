@@ -1,0 +1,35 @@
+# load all necessary libraries
+import pandas as pd
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
+pd.set_option('max_colwidth', 100)
+
+# taking sample sentences for building TF-IDF model
+documents = ["Inflation has increased unemployment", 
+             "The company has increased its sales", 
+              "Fear increased his pulse"]
+
+# defining preprocess function for lowercasing, tokenizing anf stop words removal
+def preprocess(document):
+    'changes document to lower case and removes stopwords'
+
+    # change sentence to lower case
+    document = document.lower()
+
+    # tokenize into words
+    words = word_tokenize(document)
+
+    # remove stop words
+    words = [word for word in words if word not in stopwords.words("english")]
+    
+  
+    
+    # join words to make sentence
+    document = " ".join(words)
+    
+    return document
+
+#applying preprocess function to the sample sentences
+documents = [preprocess(document) for document in documents]
+print(documents)
